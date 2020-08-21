@@ -63,6 +63,7 @@
     <Compile Include="Emulatore\LogicaApplicativa\Stato\Registro.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\ShiftRegister.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\UnitàOperativa.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\Utility.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
