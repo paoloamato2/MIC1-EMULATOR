@@ -12,6 +12,10 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emulatore\Controllo\Controller.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\FacadeEmulatore.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\FacadeInterprete.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControllo.cs" />
@@ -90,7 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assemblatore\" />
-    <Folder Include="Emulatore\Controllo\" />
     <Folder Include="Emulatore\InterfacciaUtente\BoundEmulatore\" />
     <Folder Include="Emulatore\InterfacciaUtente\BoundVisualizzazione\" />
     <Folder Include="Emulatore\ServiziTecnici\" />

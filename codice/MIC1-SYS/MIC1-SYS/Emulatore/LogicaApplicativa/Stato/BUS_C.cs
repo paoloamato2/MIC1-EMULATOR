@@ -6,23 +6,23 @@
         private static volatile BUS_C _busC;
         private readonly Registro[] _registers;
 
-
-        public string Operation { get; set; }
-
-        public string Dato { get; set; }
-
         public BUS_C()
         {
             _registers = Registro.getInstance();
         }
 
+
+        public string Operation { get; set; }
+
+        public string Dato { get; set; }
+
         public static BUS_C GetInstance()
         {
-            if (_busC == null)
-                lock (Object)
-                {
-                    if (_busC == null) _busC = new BUS_C();
-                }
+            if (_busC != null) return _busC;
+            lock (Object)
+            {
+                if (_busC == null) _busC = new BUS_C();
+            }
 
             return _busC;
         }

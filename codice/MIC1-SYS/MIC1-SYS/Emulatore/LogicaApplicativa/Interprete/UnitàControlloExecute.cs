@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 {
-    class UnitàControlloExecute : UnitàControlloState
+    internal class UnitàControlloExecute : UnitàControlloState
     {
         public static readonly object _object = new object();
         private UnitàControllo UC;
-        protected override void changeState(UnitàControllo UC, UnitàControlloState NewState)
+
+        protected override void changeState(UnitàControllo uc, UnitàControlloState NewState)
         {
-            throw new NotImplementedException();
+            uc.setState(NewState);
         }
 
         public override void eseguiCiclo()

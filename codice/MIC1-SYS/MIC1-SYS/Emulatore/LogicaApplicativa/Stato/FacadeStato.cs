@@ -1,32 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
     public class FacadeStato
     {
-        private UnitàOperativa OU;
-        private MemoriaControllo MC;
+        private readonly MemoriaControllo MC;
+        private readonly UnitàOperativa OU;
         private MemoriaCentrale RAM;
 
         public FacadeStato()
         {
             OU = UnitàOperativa.getInstance();
             MC = MemoriaControllo.getInstance();
-            RAM = MemoriaCentrale.getInstance();
+            RAM = MemoriaCentrale.GetInstance();
         }
 
         public void Reset()
         {
-
+            OU.reset();
         }
 
-        public string Fetch()
+        public string Fetch(string indirizzo)
         {
-            throw new InvalidOperationException();
+            return MC.leggiMicroIstruzione(indirizzo);
         }
 
         public bool Execute(string Opcode)
@@ -36,13 +32,21 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
         public void CaricaProgramma()
         {
-
         }
 
         public void CaricaMicroProgramma()
         {
+        }
 
+
+        public string get_MBR()
+        {
+            return OU.get_MBR();
+        }
+
+        public int[] get_ALUflag()
+        {
+            return OU.get_ALUflag();
         }
     }
-    
 }

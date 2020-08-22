@@ -1,71 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
+﻿namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 {
     public abstract class UnitàControlloState
     {
-        private static volatile UnitàControlloReset UCR = null;
-        private static volatile UnitàControlloFetch UCF = null;
-        private static volatile UnitàControlloExecute UCE = null;
+        private static volatile UnitàControlloReset UCR;
+        private static volatile UnitàControlloFetch UCF;
+        private static volatile UnitàControlloExecute UCE;
 
         protected abstract void changeState(UnitàControllo UC, UnitàControlloState NewState);
 
         public abstract void eseguiCiclo();
 
-        public static UnitàControlloState getInstance(String StatoSelezionato)
+        public static UnitàControlloState getInstance(string StatoSelezionato)
         {
             if (StatoSelezionato.Equals("Fetch"))
             {
-                if (UCF == null)
+                if (UCF != null) return UCF;
+                lock (UnitàControlloFetch._object)
                 {
-                    lock (UnitàControlloFetch._object)
-                    {
-                        if (UCF == null)
-                        {
-                            UCF = new UnitàControlloFetch();
-                        }
-                    }
+                    if (UCF == null) UCF = new UnitàControlloFetch();
                 }
 
                 return UCF;
-
             }
-            else if (StatoSelezionato.Equals("Execute"))
+
+            if (StatoSelezionato.Equals("Execute"))
             {
-                if (UCE == null)
+                if (UCE != null) return UCE;
+                lock (UnitàControlloExecute._object)
                 {
-                    lock (UnitàControlloExecute._object)
-                    {
-                        if (UCE == null)
-                        {
-                            UCE = new UnitàControlloExecute();
-                        }
-                    }
+                    if (UCE == null) UCE = new UnitàControlloExecute();
                 }
 
                 return UCE;
             }
-            else
+
+            lock (UnitàControlloReset._object)
             {
+                if (UCR != null) return UCR;
                 lock (UnitàControlloReset._object)
                 {
-                    if (UCR == null)
-                    {
-                        lock (UnitàControlloReset._object)
-                        {
-                            if (UCR == null)
-                            {
-                                UCR = new UnitàControlloReset();
-                            }
-                        }
-                    }
-
-                    return UCR;
+                    if (UCR == null) UCR = new UnitàControlloReset();
                 }
+
+                return UCR;
             }
         }
     }

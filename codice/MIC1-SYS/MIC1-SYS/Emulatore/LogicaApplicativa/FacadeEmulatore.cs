@@ -1,14 +1,11 @@
-﻿using System;
-using MIC1_SYS.Emulatore.LogicaApplicativa.Interprete;
+﻿using MIC1_SYS.Emulatore.LogicaApplicativa.Interprete;
 using MIC1_SYS.Emulatore.LogicaApplicativa.Stato;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa
 {
-
-
     public class FacadeEmulatore
     {
-        private FacadeInterprete FI;
+        private readonly FacadeInterprete FI;
         private FacadeStato FS;
 
 
@@ -20,18 +17,15 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa
 
         public bool AvviaCiclo()
         {
-            return false;
+            return FI.avviaCiclo();
         }
 
-        public void InizializzaProgramma(String Nome,int ID,String Percorso)
+        public void InizializzaProgramma(string Nome, int ID, string Percorso)
         {
-
         }
 
-        public void InizializzaMicroProgramma(String Nome, int ID, String Percorso)
+        public void InizializzaMicroProgramma(string Nome, int ID, string Percorso)
         {
-
         }
-
     }
 }

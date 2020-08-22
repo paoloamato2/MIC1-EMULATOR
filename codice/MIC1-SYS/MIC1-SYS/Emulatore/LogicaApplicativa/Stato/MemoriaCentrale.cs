@@ -1,63 +1,71 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.SqlServer.Server;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
     public class MemoriaCentrale
     {
-        static readonly object _object = new object();
-        private static volatile MemoriaCentrale RAM;
-        private string[] Data;
-        private string operation;
+        private static readonly object Object = new object();
+        private static volatile MemoriaCentrale _ram;
+        private readonly string[] _data;
 
 
         public MemoriaCentrale()
         {
+            _data = new string[512];
+
+            _data[128] = "00000000000000000000000000000000";
+            _data[0] = "00000000000000000000000100000000";
+            _data[1] = "00000101000100000000101000010000";
+            _data[2] = "00000101000100000000101000010000";
         }
 
-        public static MemoriaCentrale getInstance()
+        public static MemoriaCentrale GetInstance()
         {
-            if (RAM==null)
+            if (_ram != null) return _ram;
+            lock (Object)
             {
-                lock (_object)
-                {
-                    if (RAM==null)
-                    {
-                        RAM = new MemoriaCentrale();
-                    }
-                }
+                if (_ram == null) _ram = new MemoriaCentrale();
             }
 
-            return RAM;
+            return _ram;
         }
 
-        public String read_data(String indirizzo)
+        public string read_data(string indirizzo)
         {
-            return "";
+            return _data[Convert.ToUInt32(indirizzo, 2)];
         }
 
-        public void write_data(String dato, String indirizzo)
+        public void write_data(string dato, string indirizzo)
         {
-
+            _data[Convert.ToUInt32(indirizzo, 2)] = dato;
         }
 
-        public String read_instr(String indirizzo)
+        public string read_instr(string indirizzo)
         {
-            return "";
+            var waAddress2 = "00" + indirizzo.Substring(0, 30);
+            var tAddress2 = Convert.ToUInt32(waAddress2, 2);
+
+
+            var tDataOut2 = _data[tAddress2];
+
+
+            var tmp = indirizzo.Substring(30, 2);
+
+            var retByte = tmp switch
+            {
+                "00" => tDataOut2.Substring(24, 8),
+                "01" => tDataOut2.Substring(16, 8),
+                "10" => tDataOut2.Substring(8, 8),
+                "11" => tDataOut2.Substring(0, 8),
+                _ => "00000000"
+            };
+
+            return "000000000000000000000000" + retByte;
         }
 
-        public void execute_op()
+
+        public void CaricaProgramma()
         {
-
-        }
-
-        public void caricaProgramma()
-        {
-
         }
     }
 }

@@ -6,7 +6,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
     {
         private static readonly object Object = new object();
         private static volatile ALU _alu;
-        private ShiftRegister _sr;
+        private readonly ShiftRegister _sr;
 
         public ALU()
         {
@@ -27,11 +27,11 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
         public static ALU GetInstance()
         {
-            if (_alu == null)
-                lock (Object)
-                {
-                    if (_alu == null) _alu = new ALU();
-                }
+            if (_alu != null) return _alu;
+            lock (Object)
+            {
+                if (_alu == null) _alu = new ALU();
+            }
 
             return _alu;
         }
@@ -56,7 +56,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             var tInc = inc.ToString();
 
             var tUSum = Convert.ToUInt32(tOperandAInv, 2) + Convert.ToUInt32(tOperandB, 2) +
-                          Convert.ToUInt32(tInc, 2);
+                        Convert.ToUInt32(tInc, 2);
 
             char[] chars = {f0, f1};
             var fn = new string(chars);
@@ -84,6 +84,8 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
 
             Risultato = Utility.ToBin(Convert.ToInt32(tResult, 2), 32);
+
+            _sr.Dato = Risultato;
 
             NFlag = Risultato[0] == '1';
             ZFlag = Risultato == "00000000000000000000000000000000";

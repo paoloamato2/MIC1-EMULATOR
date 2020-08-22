@@ -1,72 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
+﻿namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
     public class Registro
     {
-        static readonly object _object = new object();
-        private string nome;
-        private string dato;
-        private static volatile Registro[] registers;
+        private static readonly object Object = new object();
+        private static volatile Registro[] _registers;
+        private readonly ALU _alu;
+        private readonly BUS_B _busB;
 
-        public Registro(string name,string data)
+        public Registro(string name, string data)
         {
             Nome = name;
-            dato = data;
+            Dato = data;
+            _busB = BUS_B.GetInstance();
+            _alu = ALU.GetInstance();
         }
 
-        public string Dato
-        {
-            get => dato;
-            set => dato = value;
-        }
+        public string Dato { get; set; }
 
-        public string Nome
-        {
-            get => nome;
-            set => nome = value;
-        }
+        public string Nome { get; set; }
 
-        public void setALUoperand()
+        public void SetAlUoperand()
         {
-
+            if (Nome == "H") _alu.OperandA = Dato;
         }
 
         public void writeBUS()
         {
-
+            _busB.Dato = Dato;
         }
 
         public static Registro[] getInstance()
         {
-            if (registers==null)
+            if (_registers != null) return _registers;
+            lock (Object)
             {
-                lock (_object)
-                {
-                    if (registers==null)
-                    {
-                        registers = new Registro[10];
-                        registers[0] = new Registro("MAR","00000000000000000000000000000000");
-                        registers[1] = new Registro("MDR", "00000000000000000000000000000000");
-                        registers[2] = new Registro("PC", "00000000000000000000000000000000");
-                        registers[3] = new Registro("MBR", "00000000000000000000000000000000");
-                        registers[4] = new Registro("SP", "00000000000000000000000000000000");
-                        registers[5] = new Registro("LV", "00000000000000000000000000000000");
-                        registers[6] = new Registro("CPP", "00000000000000000000000000000000");
-                        registers[7] = new Registro("TOS", "00000000000000000000000000000000");
-                        registers[8] = new Registro("OPC", "00000000000000000000000000000000");
-                        registers[9] = new Registro("H", "00000000000000000000000000000000");
-                    }
-                }
+                if (_registers != null) return _registers;
+                _registers = new Registro[10];
+                _registers[0] = new Registro("MAR", "00000000000000000000000000000000");
+                _registers[1] = new Registro("MDR", "00000000000000000000000000000000");
+                _registers[2] = new Registro("PC", "00000000000000000000000000000000");
+                _registers[3] = new Registro("MBR", "00000000000000000000000000000000");
+                _registers[4] = new Registro("SP", "00000000000000000000000000000000");
+                _registers[5] = new Registro("LV", "00000000000000000000000000000000");
+                _registers[6] = new Registro("CPP", "00000000000000000000000000000000");
+                _registers[7] = new Registro("TOS", "00000000000000000000000000000000");
+                _registers[8] = new Registro("OPC", "00000000000000000000000000000000");
+                _registers[9] = new Registro("H", "00000000000000000000000000000000");
             }
 
-            return registers;
+            return _registers;
         }
-        
-
     }
 }
