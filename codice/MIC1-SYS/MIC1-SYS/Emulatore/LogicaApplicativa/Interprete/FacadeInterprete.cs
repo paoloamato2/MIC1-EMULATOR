@@ -2,12 +2,12 @@
 {
     public class FacadeInterprete
     {
-        private UnitàControllo UC;
+        private UnitàControllo _uc;
 
-        public bool avviaCiclo()
+        public bool AvviaCiclo()
         {
-            UC = UnitàControllo.getInstance();
-            while (true) UC.eseguiCiclo();
+            _uc = UnitàControllo.GetInstance();
+            while (true) _uc.EseguiCiclo();
         }
     }
 }

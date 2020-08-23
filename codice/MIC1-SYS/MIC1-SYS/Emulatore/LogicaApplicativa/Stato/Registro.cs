@@ -5,13 +5,13 @@
         private static readonly object Object = new object();
         private static volatile Registro[] _registers;
         private readonly ALU _alu;
-        private readonly BUS_B _busB;
+        private readonly BusB _busB;
 
         public Registro(string name, string data)
         {
             Nome = name;
             Dato = data;
-            _busB = BUS_B.GetInstance();
+            _busB = BusB.GetInstance();
             _alu = ALU.GetInstance();
         }
 
@@ -24,12 +24,12 @@
             if (Nome == "H") _alu.OperandA = Dato;
         }
 
-        public void writeBUS()
+        public void WriteBus()
         {
             _busB.Dato = Dato;
         }
 
-        public static Registro[] getInstance()
+        public static Registro[] GetInstance()
         {
             if (_registers != null) return _registers;
             lock (Object)

@@ -2,28 +2,23 @@
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
-    public class BUS_B
+    public class BusB
     {
         private static readonly object Object = new object();
-        private static volatile BUS_B _busB;
-        private readonly ALU _alu;
+        private static volatile BusB _busB;
+        private ALU _alu;
         private Registro[] _registers;
-
-        public BUS_B()
-        {
-            _alu = ALU.GetInstance();
-        }
 
         public string Dato { get; set; }
 
         public string Operation { get; set; }
 
-        public static BUS_B GetInstance()
+        public static BusB GetInstance()
         {
             if (_busB != null) return _busB;
             lock (Object)
             {
-                if (_busB == null) _busB = new BUS_B();
+                if (_busB == null) _busB = new BusB();
             }
 
             return _busB;
@@ -31,19 +26,21 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
         public void SetAlUoperand()
         {
+            _alu = ALU.GetInstance();
             _alu.OperandB = Dato;
         }
 
         public void execute_op()
         {
-            _registers = Registro.getInstance();
+            _registers = Registro.GetInstance();
 
             var regToBDecoderOut = "000000000";
             var index = Convert.ToUInt32(Operation, 2);
+            var tmp1 = index;
             index = 8 - index;
 
 
-            if (index < 9)
+            if (tmp1 < 9)
             {
                 var temp = regToBDecoderOut.ToCharArray();
                 temp[index] = '1';
@@ -54,10 +51,10 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             switch (regToBDecoderOut)
             {
                 case "000000001":
-                    _registers[1].writeBUS();
+                    _registers[1].WriteBus();
                     break;
                 case "000000010":
-                    _registers[2].writeBUS();
+                    _registers[2].WriteBus();
                     break;
                 case "000000100":
                 {
@@ -66,7 +63,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
                         _registers[3].Dato = "111111111111111111111111" + _registers[3].Dato.Substring(24, 8);
                     else
                         _registers[3].Dato = "000000000000000000000000" + _registers[3].Dato.Substring(24, 8);
-                    _registers[3].writeBUS();
+                    _registers[3].WriteBus();
                     _registers[3].Dato = tmp;
                     break;
                 }
@@ -74,24 +71,24 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
                 {
                     var tmp = _registers[3].Dato;
                     _registers[3].Dato = "000000000000000000000000" + _registers[3].Dato.Substring(24, 8);
-                    _registers[3].writeBUS();
+                    _registers[3].WriteBus();
                     _registers[3].Dato = tmp;
                     break;
                 }
                 case "000010000":
-                    _registers[4].writeBUS();
+                    _registers[4].WriteBus();
                     break;
                 case "000100000":
-                    _registers[5].writeBUS();
+                    _registers[5].WriteBus();
                     break;
                 case "001000000":
-                    _registers[6].writeBUS();
+                    _registers[6].WriteBus();
                     break;
                 case "010000000":
-                    _registers[7].writeBUS();
+                    _registers[7].WriteBus();
                     break;
                 case "100000000":
-                    _registers[8].writeBUS();
+                    _registers[8].WriteBus();
                     break;
                 default:
                     Dato = "00000000000000000000000000000000";

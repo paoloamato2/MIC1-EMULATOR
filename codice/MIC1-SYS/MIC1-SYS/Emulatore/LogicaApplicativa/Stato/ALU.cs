@@ -6,12 +6,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
     {
         private static readonly object Object = new object();
         private static volatile ALU _alu;
-        private readonly ShiftRegister _sr;
-
-        public ALU()
-        {
-            _sr = ShiftRegister.GetInstance();
-        }
+        private ShiftRegister _sr;
 
         public string Operation { get; set; }
 
@@ -38,6 +33,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
         public void execute_op()
         {
+            _sr = ShiftRegister.GetInstance();
             var f0 = Operation[0];
             var f1 = Operation[1];
             var enA = Operation[2];

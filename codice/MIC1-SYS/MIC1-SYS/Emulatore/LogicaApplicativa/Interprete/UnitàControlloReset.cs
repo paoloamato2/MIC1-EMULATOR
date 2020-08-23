@@ -4,30 +4,32 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 {
     public class UnitàControlloReset : UnitàControlloState
     {
-        public static readonly object _object = new object();
-        private readonly FacadeStato FS;
-        private UnitàControllo UC;
+        public static readonly object Object = new object();
+        private readonly FacadeStato _fs;
+        private UnitàControllo _uc;
 
         protected internal UnitàControlloReset()
         {
-            FS = new FacadeStato();
+            _fs = new FacadeStato();
         }
 
-        protected override void changeState(UnitàControllo uc, UnitàControlloState NewState)
+        protected override void ChangeState(UnitàControllo uc, UnitàControlloState newState)
         {
-            uc.setState(NewState);
+            uc.SetState(newState);
         }
 
-        public override void eseguiCiclo()
+        public override void EseguiCiclo()
         {
-            UC = UnitàControllo.getInstance();
-            UC.Mir = "000000001000000000000000000000001001";
-            UC.NFf = 0;
-            UC.ZFf = 0;
-            FS.Reset();
+            _uc = UnitàControllo.GetInstance();
+            _uc.Mir = "000000001000000000000000000000001001";
+            _uc.NFf = 0;
+            _uc.ZFf = 0;
+            _uc.ResetDone = true;
+            _uc.ResetFlag = false;
+            _fs.Reset();
 
 
-            changeState(UC, getInstance("Fetch"));
+            ChangeState(_uc, GetInstance("Fetch"));
         }
     }
 }

@@ -1,33 +1,32 @@
-﻿using System;
-
-namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
+﻿namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
     public class FacadeStato
     {
-        private readonly MemoriaControllo MC;
-        private readonly UnitàOperativa OU;
-        private MemoriaCentrale RAM;
+        private readonly MemoriaControllo _mc;
+        private readonly UnitàOperativa _ou;
+        private MemoriaCentrale _ram;
 
         public FacadeStato()
         {
-            OU = UnitàOperativa.getInstance();
-            MC = MemoriaControllo.getInstance();
-            RAM = MemoriaCentrale.GetInstance();
+            _ou = UnitàOperativa.GetInstance();
+            _mc = MemoriaControllo.GetInstance();
+            _ram = MemoriaCentrale.GetInstance();
         }
 
         public void Reset()
         {
-            OU.reset();
+            _ou.Reset();
         }
 
         public string Fetch(string indirizzo)
         {
-            return MC.leggiMicroIstruzione(indirizzo);
+            return _mc.LeggiMicroIstruzione(indirizzo);
         }
 
-        public bool Execute(string Opcode)
+        public bool Execute(string opcode)
         {
-            throw new InvalidOperationException();
+            _ou.Execute(opcode);
+            return true;
         }
 
         public void CaricaProgramma()
@@ -41,12 +40,12 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
         public string get_MBR()
         {
-            return OU.get_MBR();
+            return _ou.get_MBR();
         }
 
         public int[] get_ALUflag()
         {
-            return OU.get_ALUflag();
+            return _ou.get_ALUflag();
         }
     }
 }

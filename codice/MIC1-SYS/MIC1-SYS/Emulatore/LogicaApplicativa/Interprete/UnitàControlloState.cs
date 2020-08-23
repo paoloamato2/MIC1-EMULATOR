@@ -2,47 +2,47 @@
 {
     public abstract class UnitàControlloState
     {
-        private static volatile UnitàControlloReset UCR;
-        private static volatile UnitàControlloFetch UCF;
-        private static volatile UnitàControlloExecute UCE;
+        private static volatile UnitàControlloReset _ucr;
+        private static volatile UnitàControlloFetch _ucf;
+        private static volatile UnitàControlloExecute _uce;
 
-        protected abstract void changeState(UnitàControllo UC, UnitàControlloState NewState);
+        protected abstract void ChangeState(UnitàControllo uc, UnitàControlloState newState);
 
-        public abstract void eseguiCiclo();
+        public abstract void EseguiCiclo();
 
-        public static UnitàControlloState getInstance(string StatoSelezionato)
+        public static UnitàControlloState GetInstance(string statoSelezionato)
         {
-            if (StatoSelezionato.Equals("Fetch"))
+            if (statoSelezionato.Equals("Fetch"))
             {
-                if (UCF != null) return UCF;
-                lock (UnitàControlloFetch._object)
+                if (_ucf != null) return _ucf;
+                lock (UnitàControlloFetch.Object)
                 {
-                    if (UCF == null) UCF = new UnitàControlloFetch();
+                    if (_ucf == null) _ucf = new UnitàControlloFetch();
                 }
 
-                return UCF;
+                return _ucf;
             }
 
-            if (StatoSelezionato.Equals("Execute"))
+            if (statoSelezionato.Equals("Execute"))
             {
-                if (UCE != null) return UCE;
-                lock (UnitàControlloExecute._object)
+                if (_uce != null) return _uce;
+                lock (UnitàControlloExecute.Object)
                 {
-                    if (UCE == null) UCE = new UnitàControlloExecute();
+                    if (_uce == null) _uce = new UnitàControlloExecute();
                 }
 
-                return UCE;
+                return _uce;
             }
 
-            lock (UnitàControlloReset._object)
+            lock (UnitàControlloReset.Object)
             {
-                if (UCR != null) return UCR;
-                lock (UnitàControlloReset._object)
+                if (_ucr != null) return _ucr;
+                lock (UnitàControlloReset.Object)
                 {
-                    if (UCR == null) UCR = new UnitàControlloReset();
+                    if (_ucr == null) _ucr = new UnitàControlloReset();
                 }
 
-                return UCR;
+                return _ucr;
             }
         }
     }

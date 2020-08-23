@@ -2,9 +2,9 @@
 {
     public class UnitàControllo
     {
-        private static volatile UnitàControllo UC;
-        private static readonly object _object = new object();
-        private UnitàControlloState State;
+        private static volatile UnitàControllo _uc;
+        private static readonly object Object = new object();
+        private UnitàControlloState _state;
 
         public UnitàControllo()
         {
@@ -12,7 +12,8 @@
             Mir = "000000000000000000000000000000000000";
             NFf = 0;
             ZFf = 0;
-            State = UnitàControlloState.getInstance("Reset");
+            ResetFlag = false;
+            _state = UnitàControlloState.GetInstance("Reset");
         }
 
         public string Mpc { get; set; }
@@ -23,25 +24,29 @@
 
         public int ZFf { get; set; }
 
-        public static UnitàControllo getInstance()
+        public bool ResetDone { get; set; }
+
+        public bool ResetFlag { get; set; }
+
+        public static UnitàControllo GetInstance()
         {
-            if (UC != null) return UC;
-            lock (_object)
+            if (_uc != null) return _uc;
+            lock (Object)
             {
-                if (UC == null) UC = new UnitàControllo();
+                if (_uc == null) _uc = new UnitàControllo();
             }
 
-            return UC;
+            return _uc;
         }
 
-        public void setState(UnitàControlloState nextState)
+        public void SetState(UnitàControlloState nextState)
         {
-            State = nextState;
+            _state = nextState;
         }
 
-        public void eseguiCiclo()
+        public void EseguiCiclo()
         {
-            State.eseguiCiclo();
+            _state.EseguiCiclo();
         }
     }
 }

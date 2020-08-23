@@ -5,26 +5,26 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa
 {
     public class FacadeEmulatore
     {
-        private readonly FacadeInterprete FI;
-        private FacadeStato FS;
+        private readonly FacadeInterprete _fi;
+        private FacadeStato _fs;
 
 
         public FacadeEmulatore()
         {
-            FI = new FacadeInterprete();
-            FS = new FacadeStato();
+            _fi = new FacadeInterprete();
+            _fs = new FacadeStato();
         }
 
         public bool AvviaCiclo()
         {
-            return FI.avviaCiclo();
+            return _fi.AvviaCiclo();
         }
 
-        public void InizializzaProgramma(string Nome, int ID, string Percorso)
+        public void InizializzaProgramma(string nome, int id, string percorso)
         {
         }
 
-        public void InizializzaMicroProgramma(string Nome, int ID, string Percorso)
+        public void InizializzaMicroProgramma(string nome, int id, string percorso)
         {
         }
     }

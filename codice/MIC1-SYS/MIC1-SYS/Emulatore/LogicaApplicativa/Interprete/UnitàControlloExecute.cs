@@ -1,20 +1,36 @@
-﻿using System;
+﻿using MIC1_SYS.Emulatore.LogicaApplicativa.Stato;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 {
     internal class UnitàControlloExecute : UnitàControlloState
     {
-        public static readonly object _object = new object();
-        private UnitàControllo UC;
+        public static readonly object Object = new object();
+        private readonly FacadeStato _fs;
+        private UnitàControllo _uc;
 
-        protected override void changeState(UnitàControllo uc, UnitàControlloState NewState)
+        protected internal UnitàControlloExecute()
         {
-            uc.setState(NewState);
+            _fs = new FacadeStato();
         }
 
-        public override void eseguiCiclo()
+        protected override void ChangeState(UnitàControllo uc, UnitàControlloState newState)
         {
-            throw new NotImplementedException();
+            uc.SetState(newState);
+        }
+
+        public override void EseguiCiclo()
+        {
+
+            _uc = UnitàControllo.GetInstance();
+
+            if (_uc.ResetFlag)
+            {
+                ChangeState(_uc, GetInstance("Reset"));
+                return;
+            }
+
+            _fs.Execute(_uc.Mir);
+            ChangeState(_uc, GetInstance("Fetch"));
         }
     }
 }

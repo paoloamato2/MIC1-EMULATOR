@@ -5,46 +5,62 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 {
     public class UnitàControlloFetch : UnitàControlloState
     {
-        public static readonly object _object = new object();
-        private readonly FacadeStato FS;
-        private UnitàControllo UC;
+        public static readonly object Object = new object();
+        private readonly FacadeStato _fs;
+        private UnitàControllo _uc;
 
         protected internal UnitàControlloFetch()
         {
-            FS = new FacadeStato();
+            _fs = new FacadeStato();
         }
 
-        protected override void changeState(UnitàControllo uc, UnitàControlloState NewState)
+        protected override void ChangeState(UnitàControllo uc, UnitàControlloState newState)
         {
-            uc.setState(NewState);
+            uc.SetState(newState);
         }
 
-        public override void eseguiCiclo()
+        public override void EseguiCiclo()
         {
-            UC = UnitàControllo.getInstance();
+            _uc = UnitàControllo.GetInstance();
 
-            var ctrl_nxt_addr_no_msb = UC.Mir.Substring(1, 8);
-            var mbr_reg_in = FS.get_MBR().Substring(24, 8);
-            string jmpc_addr;
-            if (UC.Mir[9] == '1')
-                jmpc_addr = Utility.ToBin(Convert.ToInt32(ctrl_nxt_addr_no_msb, 2) | Convert.ToInt32(mbr_reg_in, 2), 8);
-            else
-                jmpc_addr = ctrl_nxt_addr_no_msb;
+            if (_uc.ResetFlag)
+            {
+                ChangeState(_uc, GetInstance("Reset"));
+                return;
+            }
 
-            var alu_flag = FS.get_ALUflag();
+            if (_uc.ResetDone)
+            {
+                _uc.ResetDone = false;
+                ChangeState(_uc, GetInstance("Execute"));
+                return;
+            }
 
-            var n_flag = alu_flag[0];
-            var z_flag = alu_flag[1];
-            var jam_n = Convert.ToInt32(UC.Mir[10].ToString(), 2);
-            var jam_z = Convert.ToInt32(UC.Mir[11].ToString(), 2);
+            calcMPC();
 
-            var high_bit = (n_flag & jam_n) | (z_flag & jam_z);
-            high_bit |= Convert.ToInt32(UC.Mpc[0].ToString(), 2);
+            _uc.Mir = _fs.Fetch(_uc.Mpc);
+            ChangeState(_uc, GetInstance("Execute"));
+        }
 
-            UC.Mpc = high_bit + jmpc_addr;
+        private void calcMPC()
+        {
+            var ctrlNxtAddrNoMsb = _uc.Mir.Substring(1, 8);
+            var mbrRegIn = _fs.get_MBR().Substring(24, 8);
+            var jmpcAddr = _uc.Mir[9] == '1'
+                ? Utility.ToBin(Convert.ToInt32(ctrlNxtAddrNoMsb, 2) | Convert.ToInt32(mbrRegIn, 2), 8)
+                : ctrlNxtAddrNoMsb;
 
-            UC.Mir = FS.Fetch(UC.Mpc);
-            changeState(UC, getInstance("Execute"));
+            var aluFlag = _fs.get_ALUflag();
+
+            var nFlag = aluFlag[0];
+            var zFlag = aluFlag[1];
+            var jamN = Convert.ToInt32(_uc.Mir[10].ToString(), 2);
+            var jamZ = Convert.ToInt32(_uc.Mir[11].ToString(), 2);
+
+            var highBit = (nFlag & jamN) | (zFlag & jamZ);
+            highBit |= Convert.ToInt32(_uc.Mpc[0].ToString(), 2);
+
+            _uc.Mpc = highBit + jmpcAddr;
         }
     }
 }

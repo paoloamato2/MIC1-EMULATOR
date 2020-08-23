@@ -4,11 +4,11 @@
     {
         private static readonly object Object = new object();
         private static volatile ShiftRegister _sr;
-        private BUS_C _busC;
+        private BusC _busC;
 
         public ShiftRegister()
         {
-            _busC = BUS_C.GetInstance();
+            _busC = BusC.GetInstance();
         }
 
         public string Operation { get; set; }
@@ -34,6 +34,9 @@
                 "01" => (Dato[0] + Dato.Substring(0, 31)),
                 _ => Dato
             };
+
+            _busC = BusC.GetInstance();
+            _busC.Dato = Dato;
         }
     }
 }
