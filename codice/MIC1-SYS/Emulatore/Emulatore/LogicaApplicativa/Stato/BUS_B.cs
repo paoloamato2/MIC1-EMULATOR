@@ -59,10 +59,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
                 case "000000100":
                 {
                     var tmp = _registers[3].Dato;
-                    if (tmp[24] == '1')
-                        _registers[3].Dato = "111111111111111111111111" + _registers[3].Dato.Substring(24, 8);
-                    else
-                        _registers[3].Dato = "000000000000000000000000" + _registers[3].Dato.Substring(24, 8);
+                    elabMBR(tmp);
                     _registers[3].WriteBus();
                     _registers[3].Dato = tmp;
                     break;
@@ -94,6 +91,14 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
                     Dato = "00000000000000000000000000000000";
                     break;
             }
+        }
+
+        private void elabMBR(string tmp)
+        {
+            if (tmp[24] == '1')
+                _registers[3].Dato = "111111111111111111111111" + _registers[3].Dato.Substring(24, 8);
+            else
+                _registers[3].Dato = "000000000000000000000000" + _registers[3].Dato.Substring(24, 8);
         }
     }
 }

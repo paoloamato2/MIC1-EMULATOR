@@ -98,6 +98,19 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             var mdr = _registers[1].Dato;
             var pc = _registers[2].Dato;
 
+            UpdateRegisters();
+
+            _systemBus.Operation = memControl;
+            var result = _systemBus.execute_op(mar, mdr, pc);
+            _prevMemOp = result;
+
+            if (memControl == "000") return;
+            _prevMemControl = memControl;
+            _prevOp = true;
+        }
+
+        private void UpdateRegisters()
+        {
             if (_prevOp)
             {
                 RdFf = Convert.ToInt32(_prevMemControl.Substring(1, 1));
@@ -109,14 +122,6 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
                 _prevOp = false;
             }
-
-            _systemBus.Operation = memControl;
-            var result = _systemBus.execute_op(mar, mdr, pc);
-            _prevMemOp = result;
-
-            if (memControl == "000") return;
-            _prevMemControl = memControl;
-            _prevOp = true;
         }
 
         public string get_MBR()
