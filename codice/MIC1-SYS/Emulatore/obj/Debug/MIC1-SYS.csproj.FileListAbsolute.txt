@@ -1,0 +1,9 @@
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\bin\Debug\MIC1-SYS.exe.config
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\bin\Debug\MIC1-SYS.exe
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\bin\Debug\MIC1-SYS.pdb
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\MIC1-SYS.csprojAssemblyReference.cache
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\MIC1_SYS.Properties.Resources.resources
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\MIC1-SYS.csproj.GenerateResource.cache
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\MIC1-SYS.csproj.CoreCompileInputs.cache
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\MIC1-SYS.exe
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\MIC1-SYS.pdb
