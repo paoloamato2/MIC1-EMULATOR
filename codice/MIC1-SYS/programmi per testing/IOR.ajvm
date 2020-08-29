@@ -1,0 +1,17 @@
+.main
+.var
+operando1
+operando2
+risultato
+.endvar
+BIPUSH 15
+ISTORE operando1
+BIPUSH 22
+ISTORE operando2
+ILOAD operando1
+ILOAD operando2
+IOR
+ISTORE risultato
+ILOAD risultato
+HALT
+.endmethod

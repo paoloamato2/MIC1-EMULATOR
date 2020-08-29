@@ -1,0 +1,21 @@
+.constant num
+44
+.endconstant
+
+
+
+.main
+LDC_W num
+BIPUSH 10
+ISUB
+INVOKEVIRTUAL .test
+HALT
+.endmethod
+
+.test()
+BIPUSH 26
+BIPUSH 11
+ISUB
+IRETURN
+.endmethod
+

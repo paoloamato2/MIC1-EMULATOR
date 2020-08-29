@@ -1,0 +1,9 @@
+.constant num
+15
+.endconstant
+
+.main
+LDC_W num
+BIPUSH 10
+IADD
+.endmethod
