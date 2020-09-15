@@ -12,6 +12,8 @@
             Mir = "000000000000000000000000000000000000";
             NFf = 0;
             ZFf = 0;
+            Termina = false;
+            Halt = false;
             ResetFlag = false;
             _state = UnitàControlloState.GetInstance("Reset");
         }
@@ -27,6 +29,12 @@
         public bool ResetDone { get; set; }
 
         public bool ResetFlag { get; set; }
+
+        public bool Termina { get; set; }
+
+        public bool Halt { get; set; }
+
+        public bool Stepbystep { get; set; } = false;
 
         public static UnitàControllo GetInstance()
         {
