@@ -1,4 +1,5 @@
-﻿using MIC1_SYS.Emulatore.LogicaApplicativa.Stato;
+﻿using System.Diagnostics;
+using MIC1_SYS.Emulatore.LogicaApplicativa.Stato;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 {
@@ -10,7 +11,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 
         protected internal UnitàControlloExecute()
         {
-            _fs = new FacadeStato();
+            _fs = FacadeStato.GetInstance();
         }
 
         protected override void ChangeState(UnitàControllo uc, UnitàControlloState newState)
@@ -20,7 +21,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 
         public override void EseguiCiclo()
         {
-
+            DebugInfo();
             _uc = UnitàControllo.GetInstance();
 
             if (_uc.ResetFlag)
@@ -30,7 +31,19 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
             }
 
             _fs.Execute(_uc.Mir);
+
+            if (_uc.Halt)
+            {
+                ChangeState(_uc, GetInstance("Halt"));
+                return;
+            }
+
             ChangeState(_uc, GetInstance("Fetch"));
+        }
+
+        private static void DebugInfo()
+        {
+            Debug.WriteLine("L'esecuzione è nello stato di execute");
         }
     }
 }
