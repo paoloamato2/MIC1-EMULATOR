@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
 using MIC1_SYS.Emulatore.LogicaApplicativa.Stato;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
@@ -11,7 +13,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 
         protected internal UnitàControlloFetch()
         {
-            _fs = new FacadeStato();
+            _fs = FacadeStato.GetInstance();
         }
 
         protected override void ChangeState(UnitàControllo uc, UnitàControlloState newState)
@@ -19,9 +21,25 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
             uc.SetState(newState);
         }
 
+        [Obsolete]
         public override void EseguiCiclo()
         {
             _uc = UnitàControllo.GetInstance();
+            DebugInfo();
+            _fs.RinnovaStato();
+
+            if (_uc.Termina)
+            {
+                _uc.Termina = false;
+                return;
+            }
+
+            if (_uc.Stepbystep) Thread.CurrentThread.Suspend();
+
+
+            var halt = false;
+
+
 
             if (_uc.ResetFlag)
             {
@@ -36,13 +54,26 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
                 return;
             }
 
-            calcMPC();
+            CalcMpc();
 
             _uc.Mir = _fs.Fetch(_uc.Mpc);
+           
+            if (_uc.Mpc == /*"010100111"*/ "010100111") halt = true;
+            if ( /*_uc.Mir== "010101000000001101100100000000000001" ||*/
+                /*_uc.Mir == "100000110000000000000000000000001001"*/ halt) _uc.Halt = true;
+            
             ChangeState(_uc, GetInstance("Execute"));
         }
 
-        private void calcMPC()
+        private void DebugInfo()
+        {
+            Debug.WriteLine("@@@@@@@@@@@");
+            Debug.WriteLine("MIR:" + _uc.Mir);
+            Debug.WriteLine("MPC:" + _uc.Mpc);
+            Debug.WriteLine("@@@@@@@@@@@");
+        }
+
+        private void CalcMpc()
         {
             var ctrlNxtAddrNoMsb = _uc.Mir.Substring(1, 8);
             var mbrRegIn = _fs.get_MBR().Substring(24, 8);
