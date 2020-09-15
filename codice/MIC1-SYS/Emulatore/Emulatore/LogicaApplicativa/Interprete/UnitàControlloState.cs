@@ -5,7 +5,7 @@
         private static volatile UnitàControlloReset _ucr;
         private static volatile UnitàControlloFetch _ucf;
         private static volatile UnitàControlloExecute _uce;
-
+        private static volatile UnitàControlloHalt _uch;
         protected abstract void ChangeState(UnitàControllo uc, UnitàControlloState newState);
 
         public abstract void EseguiCiclo();
@@ -29,6 +29,17 @@
                 lock (UnitàControlloExecute.Object)
                 {
                     if (_uce == null) _uce = new UnitàControlloExecute();
+                }
+
+                return _uce;
+            }
+
+            if (statoSelezionato.Equals("Halt"))
+            {
+                if (_uch != null) return _uch;
+                lock (UnitàControlloHalt.Object)
+                {
+                    if (_uch == null) _uch = new UnitàControlloHalt();
                 }
 
                 return _uce;
