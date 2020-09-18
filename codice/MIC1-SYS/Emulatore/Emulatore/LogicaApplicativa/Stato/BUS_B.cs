@@ -9,6 +9,12 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
         private ALU _alu;
         private Registro[] _registers;
 
+        public BusB()
+        {
+            Dato = "00000000000000000000000000000000";
+            Operation = "0000";
+        }
+
         public string Dato { get; set; }
 
         public string Operation { get; set; }
@@ -51,20 +57,20 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             switch (regToBDecoderOut)
             {
                 case "000000001":
-                    _registers[1].WriteBus();
+                    _registers[1].WriteBus(); //MDR scrive nel bus B
                     break;
                 case "000000010":
-                    _registers[2].WriteBus();
+                    _registers[2].WriteBus(); //PC scrive nel bus B
                     break;
-                case "000000100":
+                case "000000100": //MBRU scrive nel bus B
                 {
                     var tmp = _registers[3].Dato;
-                    elabMBR(tmp);
+                    ElabMbr(tmp);
                     _registers[3].WriteBus();
                     _registers[3].Dato = tmp;
                     break;
                 }
-                case "000001000":
+                case "000001000": //MBR scrive nel bus B
                 {
                     var tmp = _registers[3].Dato;
                     _registers[3].Dato = "000000000000000000000000" + _registers[3].Dato.Substring(24, 8);
@@ -72,19 +78,19 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
                     _registers[3].Dato = tmp;
                     break;
                 }
-                case "000010000":
+                case "000010000": //SP scrive nel bus B
                     _registers[4].WriteBus();
                     break;
-                case "000100000":
+                case "000100000": //LV scrive nel bus B
                     _registers[5].WriteBus();
                     break;
-                case "001000000":
+                case "001000000": //CPP scrive nel bus B
                     _registers[6].WriteBus();
                     break;
-                case "010000000":
+                case "010000000": //TOS scrive nel bus B
                     _registers[7].WriteBus();
                     break;
-                case "100000000":
+                case "100000000": //OPC scrive nel bus B
                     _registers[8].WriteBus();
                     break;
                 default:
@@ -93,7 +99,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             }
         }
 
-        private void elabMBR(string tmp)
+        private void ElabMbr(string tmp) //complemento a due
         {
             if (tmp[24] == '1')
                 _registers[3].Dato = "111111111111111111111111" + _registers[3].Dato.Substring(24, 8);
