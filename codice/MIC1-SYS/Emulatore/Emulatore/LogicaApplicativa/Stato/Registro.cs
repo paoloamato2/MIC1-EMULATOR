@@ -21,12 +21,12 @@
 
         public void SetAlUoperand()
         {
-            if (Nome == "H") _alu.OperandA = Dato;
+            if (Nome == "H") _alu.OperandA = Dato; //H scrive in bus B
         }
 
         public void WriteBus()
         {
-            _busB.Dato = Dato;
+            _busB.Dato = Dato; //scrittura in bus B
         }
 
         public static Registro[] GetInstance()
