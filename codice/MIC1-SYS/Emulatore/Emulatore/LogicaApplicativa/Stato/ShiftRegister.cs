@@ -1,4 +1,7 @@
-﻿namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
+﻿using System.Diagnostics;
+using System.Linq.Expressions;
+
+namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
     public class ShiftRegister
     {
@@ -9,6 +12,8 @@
         public ShiftRegister()
         {
             _busC = BusC.GetInstance();
+            Dato = "00000000000000000000000000000000";
+            Operation = "00";
         }
 
         public string Operation { get; set; }
@@ -35,17 +40,29 @@
         {
             return Dato[0] + Dato.Substring(0, 31);
         }
+
         public void execute_op()
         {
+
             Dato = Operation switch
             {
-                "10" => (SLL8()),
-                "01" => (SRA1()),
+                "10" => SLL8(), //scorrimento logico a sinistra
+                "01" => SRA1(), //scorrimento aritmetico a destra
                 _ => Dato
             };
 
             _busC = BusC.GetInstance();
-            _busC.Dato = Dato;
+            _busC.Dato = Dato; //scrittura risultato nel bus C
+
+            DebugInfo();
+        }
+
+        private void DebugInfo()
+        {
+            Debug.WriteLine("***********");
+            Debug.WriteLine("Operazione SR: " + Operation);
+            Debug.WriteLine("Dato SR: " + Dato);
+            Debug.WriteLine("***********");
         }
     }
 }
