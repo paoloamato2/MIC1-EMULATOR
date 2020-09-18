@@ -9,6 +9,8 @@
         public BusC()
         {
             _registers = Registro.GetInstance();
+            Dato = "00000000000000000000000000000000";
+            Operation = "000000000";
         }
 
 
@@ -29,23 +31,23 @@
 
         public void execute_op()
         {
-            if (Operation[8] == '1') _registers[0].Dato = Dato;
+            if (Operation[8] == '1') _registers[0].Dato = Dato; //bus C scrive in MAR
 
-            if (Operation[7] == '1') _registers[1].Dato = Dato;
+            if (Operation[7] == '1') _registers[1].Dato = Dato; //bus C scrive in MDR
 
-            if (Operation[6] == '1') _registers[2].Dato = Dato;
+            if (Operation[6] == '1') _registers[2].Dato = Dato; //bus C scrive in PC
 
-            if (Operation[5] == '1') _registers[4].Dato = Dato;
+            if (Operation[5] == '1') _registers[4].Dato = Dato; //bus C scrive in SP
 
-            if (Operation[4] == '1') _registers[5].Dato = Dato;
+            if (Operation[4] == '1') _registers[5].Dato = Dato; //bus C scrive in LV
 
-            if (Operation[3] == '1') _registers[6].Dato = Dato;
+            if (Operation[3] == '1') _registers[6].Dato = Dato; //bus C scrive in CPP
 
-            if (Operation[2] == '1') _registers[7].Dato = Dato;
+            if (Operation[2] == '1') _registers[7].Dato = Dato; //bus C scrive in TOS
 
-            if (Operation[1] == '1') _registers[8].Dato = Dato;
+            if (Operation[1] == '1') _registers[8].Dato = Dato; //bus C scrive in OPC
 
-            if (Operation[0] == '1') _registers[9].Dato = Dato;
+            if (Operation[0] == '1') _registers[9].Dato = Dato; //bus C scrive in H
             //------------------------
             //switch (Operation)
             //{
