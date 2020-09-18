@@ -32,15 +32,15 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             var retValueInstr = "";
             var retValue = new string[2];
 
-            var wrFf = Convert.ToInt32(Operation.Substring(0, 1));
-            var rdFf = Convert.ToInt32(Operation.Substring(1, 1));
-            var fetchFf = Convert.ToInt32(Operation.Substring(2, 1));
+            var wrFf = Convert.ToInt32(Operation.Substring(0, 1)); //write bit
+            var rdFf = Convert.ToInt32(Operation.Substring(1, 1)); //read bit
+            var fetchFf = Convert.ToInt32(Operation.Substring(2, 1)); //fetch bit
 
-            if (wrFf == 1) _ram.write_data(mdr, mar);
+            if (wrFf == 1) _ram.write_data(mdr, mar); //scrittura in area dati della memoria centrale
 
-            if (rdFf == 1) retValueData = _ram.read_data(mar);
+            if (rdFf == 1) retValueData = _ram.read_data(mar); //lettura da area dati della memoria centrale
 
-            if (fetchFf == 1) retValueInstr = _ram.read_instr(pc);
+            if (fetchFf == 1) retValueInstr = _ram.read_instr(pc); //lettura da area istruzioni della memoria centrale
 
             retValue[0] = retValueData; //dato letto
             retValue[1] = retValueInstr; //istruzione letta
