@@ -72,7 +72,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             var aluControl = opcode.Substring(14, 6);
             var srControl = opcode.Substring(12, 2);
 
-           
+
             DebugInfo();
             //  wr_ff = Convert.ToInt32(mem_control.Substring(0, 1));
             // rd_ff = Convert.ToInt32(mem_control.Substring(1, 1));
@@ -101,7 +101,9 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
             UpdateRegisters(); //nel mic-1 un accesso in lettura o in scrittura alla memoria centrale è ritardato di un ciclo di clock
 
             _systemBus.Operation = memControl; //invio segnali di controllo al bus di sistema
-            var result = _systemBus.execute_op(mar, mdr, pc); //bus di sistema esegue l'operazione assegnata, eventualmente ritorna dei dati letti dalla memoria centrale
+            var result =
+                _systemBus.execute_op(mar, mdr,
+                    pc); //bus di sistema esegue l'operazione assegnata, eventualmente ritorna dei dati letti dalla memoria centrale
             _prevMemOp = result;
 
             if (memControl == "000") return;

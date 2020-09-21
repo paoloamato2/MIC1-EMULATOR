@@ -23,17 +23,17 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
         {
             DebugInfo();
             _uc = UnitàControllo.GetInstance();
-            _uc.Mir = "000000001000000000000000000000001001";
-            _uc.NFf = 0;
-            _uc.ZFf = 0;
+            _uc.Mir = "000000001000000000000000000000001001"; //reset MIR
+            _uc.NFf = 0; //reset negative flag
+            _uc.ZFf = 0; //reset zero flag
             _uc.ResetDone = true;
             _uc.ResetFlag = false;
             _uc.Halt = false;
             _uc.Termina = false;
-            _fs.Reset();
+            _fs.Reset(); //reset unità operativa
 
 
-            ChangeState(_uc, GetInstance("Fetch"));
+            ChangeState(_uc, GetInstance("Fetch")); //passaggio allo stato di fetch
         }
 
         private static void DebugInfo()

@@ -26,19 +26,19 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
 
             if (_uc.ResetFlag)
             {
-                ChangeState(_uc, GetInstance("Reset"));
+                ChangeState(_uc, GetInstance("Reset")); //passaggio allo stato di reset
                 return;
             }
 
-            _fs.Execute(_uc.Mir);
+            _fs.Execute(_uc.Mir); //esecuzione microistruzione
 
             if (_uc.Halt)
             {
-                ChangeState(_uc, GetInstance("Halt"));
+                ChangeState(_uc, GetInstance("Halt")); //passaggio allo stato di halt
                 return;
             }
 
-            ChangeState(_uc, GetInstance("Fetch"));
+            ChangeState(_uc, GetInstance("Fetch")); //passaggio allo stato di fetch
         }
 
         private static void DebugInfo()

@@ -66,6 +66,7 @@
             this.columnHeader1,
             this.columnHeader2});
             this.lstProgrammi.ContextMenuStrip = this.contextMenuProgrammi;
+            this.lstProgrammi.Enabled = false;
             this.lstProgrammi.ForeColor = System.Drawing.Color.Red;
             this.lstProgrammi.HideSelection = false;
             this.lstProgrammi.Location = new System.Drawing.Point(30, 36);
@@ -191,7 +192,7 @@
             this.modificaMicroProgrammaToolStripMenuItem,
             this.caricaListaMicroProgrammiToolStripMenuItem});
             this.contextMenuMicroProgrammi.Name = "contextMenuMicroProgrammi";
-            this.contextMenuMicroProgrammi.Size = new System.Drawing.Size(423, 124);
+            this.contextMenuMicroProgrammi.Size = new System.Drawing.Size(423, 152);
             // 
             // caricaMicroProgrammaToolStripMenuItem
             // 

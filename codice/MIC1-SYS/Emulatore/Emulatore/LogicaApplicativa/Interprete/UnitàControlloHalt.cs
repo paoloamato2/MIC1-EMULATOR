@@ -19,25 +19,30 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
         {
             _uc = UnitàControllo.GetInstance();
 
-            Debug.WriteLine("L'esecuzione è in stato di halt");
+            DebugInfo();
 
 
             if (_uc.Termina)
                 // _uc.Termina = false;
                 return;
 
-            if (_uc.Stepbystep) Thread.CurrentThread.Suspend();
+            if (_uc.Stepbystep)
+                Thread.CurrentThread.Suspend(); //il thread corrente viene sospeso per garantire lo step-by-step
 
-           
 
             if (_uc.ResetFlag)
             {
-                ChangeState(_uc, GetInstance("Reset"));
+                ChangeState(_uc, GetInstance("Reset")); //passaggio allo stato di fetch
                 return;
             }
 
 
-            ChangeState(_uc, GetInstance("Halt"));
+            ChangeState(_uc, GetInstance("Halt")); //permanenza nello stato di halt
+        }
+
+        private static void DebugInfo()
+        {
+            Debug.WriteLine("L'esecuzione è in stato di halt");
         }
     }
 }

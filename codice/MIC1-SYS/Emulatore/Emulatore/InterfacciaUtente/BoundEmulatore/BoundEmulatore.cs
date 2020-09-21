@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using MIC1_SYS.Emulatore.Controllo;
@@ -14,9 +15,9 @@ namespace MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore
         private readonly Controller _controller;
         private List<MicroProgrammaOttenuto> _listaMicroProgrammi;
         private List<ProgrammaOttenuto> _listaProgrammi;
+        private bool _reset;
         private bool _riprendi;
         private bool _sospendi;
-        private bool _reset;
         private bool _step;
         private bool _termina;
         private Thread _threadEmulazione;
@@ -62,7 +63,8 @@ namespace MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore
         [Obsolete]
         private void avviaProgrammaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            lstProgrammi.Enabled = false;
+            lstMicroProgrammi.Enabled = false;
             cbSBS.Enabled = false;
             cbModalitaProgrammatore.Enabled = false;
             _vis = new BoundVisualizzazione.BoundVisualizzazione {Modprogrammatore = cbModalitaProgrammatore.Checked};
@@ -119,7 +121,8 @@ namespace MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore
             while (true)
             {
                 _controller.OttieniStato(); //prelievo stato corrente architettura
-                _vis.AggiornaBoundVisualizzazione(_controller.get_StatoOttenuto()); //aggiornamento dello stato visualizzato
+                _vis.AggiornaBoundVisualizzazione(_controller
+                    .get_StatoOttenuto()); //aggiornamento dello stato visualizzato
             }
         }
 
@@ -228,7 +231,7 @@ namespace MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore
         private void CaricaListaMicroProgrammi()
         {
             lstMicroProgrammi.Items.Clear();
-            
+
 
             _listaMicroProgrammi = _controller.get_ListaMicroProgrammi();
 
@@ -289,6 +292,7 @@ namespace MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore
 
         private void caricaMicroProgrammaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            lstProgrammi.Enabled = true;
             var id = int.Parse(lstMicroProgrammi.SelectedItems[0].SubItems[0].Text);
             _controller.CaricaMicroProgramma(id);
         }
@@ -337,12 +341,10 @@ namespace MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore
         private void btnReset_Click(object sender, EventArgs e)
         {
             _reset = true;
-            
         }
 
-        private void contextMenuProgrammi_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void contextMenuProgrammi_Opening(object sender, CancelEventArgs e)
         {
-            
         }
     }
 }

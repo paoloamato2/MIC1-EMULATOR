@@ -34,35 +34,35 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Interprete
                 return;
             }
 
-            if (_uc.Stepbystep) Thread.CurrentThread.Suspend();
+            if (_uc.Stepbystep)
+                Thread.CurrentThread.Suspend(); //il thread corrente viene sospeso per garantire lo step-by-step
 
 
             var halt = false;
 
 
-
             if (_uc.ResetFlag)
             {
-                ChangeState(_uc, GetInstance("Reset"));
+                ChangeState(_uc, GetInstance("Reset")); //passaggio allo stato di reset
                 return;
             }
 
             if (_uc.ResetDone)
             {
                 _uc.ResetDone = false;
-                ChangeState(_uc, GetInstance("Execute"));
+                ChangeState(_uc, GetInstance("Execute")); //passaggio allo stato di execute
                 return;
             }
 
-            CalcMpc();
+            CalcMpc(); //calcolo nuovo MPC
 
-            _uc.Mir = _fs.Fetch(_uc.Mpc);
-           
+            _uc.Mir = _fs.Fetch(_uc.Mpc); //fetch microistruzione
+
             if (_uc.Mpc == /*"010100111"*/ "010100111") halt = true;
             if ( /*_uc.Mir== "010101000000001101100100000000000001" ||*/
                 /*_uc.Mir == "100000110000000000000000000000001001"*/ halt) _uc.Halt = true;
-            
-            ChangeState(_uc, GetInstance("Execute"));
+
+            ChangeState(_uc, GetInstance("Execute")); //passaggio allo stato di execute
         }
 
         private void DebugInfo()

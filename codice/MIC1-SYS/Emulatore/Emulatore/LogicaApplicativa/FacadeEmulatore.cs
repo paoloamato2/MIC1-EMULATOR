@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using MIC1_SYS.Emulatore.LogicaApplicativa.Interprete;
 using MIC1_SYS.Emulatore.LogicaApplicativa.Stato;
@@ -36,6 +35,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa
 
             return _fe;
         }
+
         public bool AvviaCiclo()
         {
             return _fi.AvviaCiclo();
@@ -103,14 +103,15 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa
         {
             var returnedData = _fst.LeggiProgrammi();
             _programmi = new List<Programma>();
-            foreach (var prog in from progText in returnedData let nome = progText[0] let id = int.Parse(progText[1]) let codice = progText[2].Split('\n') select new Programma(id, nome, codice))
-            {
-                _programmi.Add(prog);
-            }
+            foreach (var prog in from progText in returnedData
+                let nome = progText[0]
+                let id = int.Parse(progText[1])
+                let codice = progText[2].Split('\n')
+                select new Programma(id, nome, codice)) _programmi.Add(prog);
 
             //test
-           // foreach (var prog in _programmi)
-             //   Debug.WriteLine(prog.Nome + " " + prog.Id + " " + "\n" + string.Join("\n", prog.Data));
+            // foreach (var prog in _programmi)
+            //   Debug.WriteLine(prog.Nome + " " + prog.Id + " " + "\n" + string.Join("\n", prog.Data));
         }
 
         public List<Programma> get_ListaProgrammi()
@@ -170,7 +171,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa
                 select new MicroProgramma(id, nome, codice)) _microprogrammi.Add(prog);
 
             //test
-          //  foreach (var microprog in _microprogrammi)
+            //  foreach (var microprog in _microprogrammi)
             //    Debug.WriteLine(microprog.Nome + " " + microprog.Id + " " + "\n" + string.Join("\n", microprog.Data));
         }
 

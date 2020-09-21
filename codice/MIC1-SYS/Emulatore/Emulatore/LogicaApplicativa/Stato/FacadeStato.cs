@@ -36,7 +36,7 @@
 
         public string Fetch(string indirizzo)
         {
-           // _stato.StatoAggiornato = false;
+            // _stato.StatoAggiornato = false;
             return _mc.LeggiMicroIstruzione(indirizzo);
         }
 
@@ -55,7 +55,7 @@
 
         public void CaricaMicroProgramma(string[] data)
         {
-           // _stato.StatoAggiornato = false;
+            // _stato.StatoAggiornato = false;
             _mc.CaricaMicroProgramma(data);
         }
 

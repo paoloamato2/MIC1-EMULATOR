@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
@@ -43,7 +42,6 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 
         public void execute_op()
         {
-
             Dato = Operation switch
             {
                 "10" => SLL8(), //scorrimento logico a sinistra

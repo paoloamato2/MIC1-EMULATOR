@@ -7,3 +7,13 @@ C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug
 C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\Emulatore.csproj.CoreCompileInputs.cache
 C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\Emulatore.exe
 C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\MIC1-SYS\obj\Debug\Emulatore.pdb
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\bin\Debug\Emulatore.exe.config
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\bin\Debug\Emulatore.exe
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\bin\Debug\Emulatore.pdb
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\MIC1_SYS.Emulatore.InterfacciaUtente.BoundEmulatore.BoundEmulatore.resources
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\MIC1_SYS.Emulatore.InterfacciaUtente.BoundVisualizzazione.BoundVisualizzazione.resources
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\MIC1_SYS.Properties.Resources.resources
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\Emulatore.csproj.GenerateResource.cache
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\Emulatore.csproj.CoreCompileInputs.cache
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\Emulatore.exe
+C:\Users\amato\OneDrive\Desktop\progetto PSSS\codice\MIC1-SYS\Emulatore\obj\Debug\Emulatore.pdb

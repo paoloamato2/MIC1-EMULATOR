@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq.Expressions;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
 {
@@ -81,7 +79,7 @@ namespace MIC1_SYS.Emulatore.LogicaApplicativa.Stato
                 case "01": //OR
                     tResult = Utility.ToBin(Convert.ToInt32(tOperandAInv, 2) | Convert.ToInt32(tOperandB, 2), 32);
                     break;
-                case "10": 
+                case "10":
                     tResult = Utility.ToBin(~Convert.ToInt32(tOperandB, 2), 32);
                     break;
                 case "11": //SOMMA ALGEBRICA

@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,27 +52,73 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Emulatore\Controllo\AluStatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\BUS_BStatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\BUS_CStatoOttenuto.cs" />
     <Compile Include="Emulatore\Controllo\Controller.cs" />
+    <Compile Include="Emulatore\Controllo\MemoriaCentraleStatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\MemoriaControlloStatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\MicroProgrammaOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\ProgrammaOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\RegistriStatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\ShiftRegisterStatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\StatoOttenuto.cs" />
+    <Compile Include="Emulatore\Controllo\UnitàOperativaStatoOttenuto.cs" />
+    <Compile Include="Emulatore\InterfacciaUtente\BoundEmulatore\BoundEmulatore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emulatore\InterfacciaUtente\BoundEmulatore\BoundEmulatore.Designer.cs">
+      <DependentUpon>BoundEmulatore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Emulatore\InterfacciaUtente\BoundVisualizzazione\BoundVisualizzazione.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Emulatore\InterfacciaUtente\BoundVisualizzazione\BoundVisualizzazione.Designer.cs">
+      <DependentUpon>BoundVisualizzazione.cs</DependentUpon>
+    </Compile>
     <Compile Include="Emulatore\LogicaApplicativa\FacadeEmulatore.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\FacadeInterprete.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControllo.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControlloExecute.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControlloFetch.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControlloHalt.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControlloReset.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Interprete\UnitàControlloState.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\MicroProgramma.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Programma.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\ALU.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\AluStato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\BusDiSistema.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\BUS_B.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\BUS_BStato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\BUS_C.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\BUS_CStato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\FacadeStato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\MemoriaCentrale.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\MemoriaCentraleStato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\MemoriaControllo.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\MemoriaControlloStato.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\RegistriStato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\Registro.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\ShiftRegister.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\ShiftRegisterStato.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\Stato.cs" />
     <Compile Include="Emulatore\LogicaApplicativa\Stato\UnitàOperativa.cs" />
-    <Compile Include="Emulatore\LogicaApplicativa\Stato\Utility.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\UnitàOperativaStato.cs" />
+    <Compile Include="Emulatore\LogicaApplicativa\Stato\Utility\Utility.cs" />
+    <Compile Include="Emulatore\ServiziTecnici\Accesso.cs" />
+    <Compile Include="Emulatore\ServiziTecnici\AccessoFileSystem.cs" />
+    <Compile Include="Emulatore\ServiziTecnici\FacadeServiziTecnici.cs" />
+    <Compile Include="Emulatore\ServiziTecnici\CompressioneDati.cs" />
+    <Compile Include="Emulatore\ServiziTecnici\FileSystem\GestoreFileSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Emulatore\InterfacciaUtente\BoundEmulatore\BoundEmulatore.resx">
+      <DependentUpon>BoundEmulatore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Emulatore\InterfacciaUtente\BoundVisualizzazione\BoundVisualizzazione.resx">
+      <DependentUpon>BoundVisualizzazione.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -93,10 +141,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Emulatore\InterfacciaUtente\BoundEmulatore\" />
-    <Folder Include="Emulatore\InterfacciaUtente\BoundVisualizzazione\" />
-    <Folder Include="Emulatore\ServiziTecnici\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

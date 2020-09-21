@@ -108,10 +108,8 @@ namespace MIC1_SYS.Emulatore.Controllo
                 _stato.set_UOSO(_emu.get_Stato().Uos);
                 ClearStatoAggiornato();
             }
-             
-            
-           
-           
+
+
             return cond;
         }
 
